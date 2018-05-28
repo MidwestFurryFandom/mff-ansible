@@ -1,0 +1,52 @@
+---
+- hosts: rams-staging
+  gather_facts: False
+  vars_files:
+    - mff_vars.yml
+  remote_user: "{{ rams_admin_user }}"
+  tasks:
+
+  - name: quickstart to staging
+    command: git checkout mff-staging 
+    args:
+      chdir: "{{ quickstart_dir }}"
+  - name: pull quickstart
+    command: git pull
+    args:
+     chdir: "{{ quickstart_dir }}"
+  
+  - name: rams to staging
+    command: git checkout mff-staging
+    args:
+      chdir: "{{ quickstart_dir }}/src/uber"
+  - name: pull rams
+    command: git pull
+    args:
+      chdir: "{{ quickstart_dir }}/src/uber"
+
+  - name: art_show to staging
+    command: git checkout mff-staging
+    args:
+      chdir: "{{ quickstart_dir }}/src/art_show"
+  - name: pull art_show
+    command: git pull
+    args:
+      chdir: "{{ quickstart_dir }}/src/art_show"
+
+  - name: plugin to staging
+    command: git checkout mff-staging
+    args:
+      chdir: "{{ quickstart_dir }}/src/mff-rams-plugin"
+  - name: pull plugin
+    command: git pull
+    args:
+      chdir: "{{ quickstart_dir }}/src/mff-rams-plugin"
+
+  - name: badge_printing to staging
+    command: git checkout mff-staging
+    args:
+      chdir: "{{ quickstart_dir }}/src/badge_printing"
+  - name: pull badge_printing
+    command: git pull
+    args:
+      chdir: "{{ quickstart_dir }}/src/badge_printing"
