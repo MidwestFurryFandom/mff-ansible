@@ -1,0 +1,28 @@
+all:
+  children:
+    rams:
+      hosts: 
+        rams-prod:
+          ansible_host: 
+        rams-staging:
+          ansible_host: 
+    atlassian:
+      children:
+        prod:
+          hosts: 
+            wiki-prod:
+              ansible_host: 
+            jira-prod:
+              ansible_host: 
+            crowd-prod:
+              ansible_host: 
+        test:
+          hosts:
+            wiki-test:
+              ansible_host: 
+            jira-test:
+              ansible_host: 
+            crowd-test:
+              ansible_host: 
+          
+
