@@ -1,0 +1,12 @@
+---
+- hosts: all
+  gather_facts: False
+  vars_files:
+    - mff_vars.yml
+  remote_user: "{{ aws_mgmt_user }}"
+  tasks:
+  - name: update packages
+    yum: 
+      name: '*'
+      state: latest
+    become: yes
