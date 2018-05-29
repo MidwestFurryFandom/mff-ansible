@@ -8,4 +8,4 @@ A set of playbooks for managing our various hosts:
 * Ensure staging is set to mff-staging branch: `ansible-playbook --private-key $RAMS_ADMIN_KEY -i mff-inventory.yml staging-set-staging-branch.yml`
 
 ### RAMS Production
-* Clone correct repos and deploy dev.ini files: `ansible-playbook --private-key $RAMS_ADMIN_KEY -i mff-inventory new-rams-server` (Also works for any new server, really)
+* Clone correct repos and deploy dev.ini files: `ansible-playbook --private-file $RAMS_ADMIN_KEY -i mff-inventory.yml new-rams-server.yml` (Also works for any new server, really)
