@@ -1,0 +1,47 @@
+---
+- hosts: rams-prod
+  gather_facts: False
+  vars_files:
+    - mff_vars.yml
+  remote_user: "{{rams_admin_user}}"
+  tasks:
+  
+  - name: checkout quickstart:master
+    git:
+      repo: ssh://git@github.com/MidwestFurryFandom/quickstart.git 
+      dest: "{{ quickstart_dir }}"
+
+  - name: checkout src/uber:master
+    git: 
+      repo: ssh://git@github.com/MidwestFurryFandom/rams.git
+      dest: "{{ quickstart_dir }}/src/uber"
+
+  - name: checkkout src/mff-rams-plugin:master
+    git:
+      repo: ssh://git@github.com/MidwestFurryFandom/mff-rams-plugin.git
+      dest: "{{ quickstart_dir }}/src/mff-rams-plugin"
+
+  - name: checkout src/art_show:master
+    git: 
+      repo: ssh://git@github.com/MidwestFurryFandom/art_show.git
+      dest: "{{ quickstart_dir }}/src/art_show"
+
+  - name: checkout src/badge_printing:master
+    git: 
+      repo: ssh://git@github.com/MidwestFurryFandom/badge_printing.git
+      dest: "{{ quickstart_dir }}/src/badge_printing"
+
+  - name: copy uber/development.ini
+    copy: 
+      src: "{{ prod_dev_dir }}/rams/development.ini"
+      dest: "{{ quickstart_dir }}/src/uber/development.ini"
+
+  - name: copy mff-rams-plugin/development.ini
+    copy: 
+      src: "{{ prod_dev_dir }}/mff-rams-plugin/development.ini"
+      dest: "{{ quickstart_dir }}/src/mff-rams-plugin/development.ini"
+
+  - name: copy art_show/development.ini
+    copy: 
+      src: "{{ prod_dev_dir }}/art_show/development.ini"
+      dest: "{{ quickstart_dir }}/src/art_show/development.ini"
