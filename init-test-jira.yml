@@ -24,14 +24,9 @@
     group: jira-admin
     mode: 0664
 
-- name: "Shutdown jira"
+- name: "restart jira"
   service:
+    use: /sbin/service
     name: jira
-    state: stopped
-- name: "Wait for JIRA to stop"
-  wait_for:
-    timeout: 20
-- name: "Start jira"
-  service:
-    name: jira
-    state: started
+    state: restarted
+    sleep: 15
