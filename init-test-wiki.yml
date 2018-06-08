@@ -1,3 +1,32 @@
-- name: "Init wiki"
-  debug:
-    msg: "Initing wiki (NOOP)"
+- name: "Install confluence server.xml"
+  synchronize: 
+    src: test-config/wiki/server.xml
+    dest: "{{confluence_install}}/conf/server.xml"
+    owner: no
+    group: no
+- name: "Proper server perms"
+  file:
+    path: "{{confluence_install}}/conf/server.xml"
+    owner: confluence-admin
+    group: confluence-admin
+    mode: 0644
+
+- name: "Install dbconfig.xml"
+  synchronize: 
+    src: test-config/wiki/confluence.cfg.xml
+    dest: "{{confluence_home}}/confluence.cfg.xml"
+    owner: no
+    group: no
+- name: "Fix cfg perms"
+  file:
+    path: "{{confluence_home}}/confluence.cfg.xml"
+    owner: confluence
+    group: confluence
+    mode: 0644
+
+- name: "restart confluence"
+  service:
+    use: /sbin/service
+    name: confluence
+    state: restarted
+    sleep: 15
