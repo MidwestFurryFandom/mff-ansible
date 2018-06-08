@@ -39,3 +39,6 @@
   tasks:
     - include: load-ssl-certs.yml app_name=jira
     - include: init-test-jira.yml
+      vars:
+        jira_install: /apps/atlassian/jira-current 
+        jira_home: /apps/atlassian/jira-home

@@ -1,0 +1,37 @@
+- name: "Install jira server.xml"
+  synchronize: 
+    src: test-config/jira/server.xml
+    dest: "{{jira_install}}/conf/server.xml"
+    owner: no
+    group: no
+- name: "Proper server perms"
+  file:
+    path: "{{jira_install}}/conf/server.xml"
+    owner: jira-admin
+    group: jira-admin
+    mode: 0644
+
+- name: "Install dbconfig.xml"
+  synchronize: 
+    src: test-config/jira/dbconfig.xml
+    dest: "{{jira_home}}/dbconfig.xml"
+    owner: no
+    group: no
+- name: "Fix cfg perms"
+  file:
+    path: "{{jira_home}}/dbconfig.xml"
+    owner: jira
+    group: jira-admin
+    mode: 0664
+
+- name: "Shutdown jira"
+  service:
+    name: jira
+    state: stopped
+- name: "Wait for JIRA to stop"
+  wait_for:
+    timeout: 20
+- name: "Start jira"
+  service:
+    name: jira
+    state: started
