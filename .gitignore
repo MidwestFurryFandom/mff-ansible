@@ -1,3 +1,4 @@
 **/*-inventory.yml
 **/*.retry
 **/*_vars.yml
+**/tmp/
