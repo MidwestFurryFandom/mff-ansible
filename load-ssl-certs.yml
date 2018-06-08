@@ -1,0 +1,54 @@
+--- 
+- name: "Copy getssl config" 
+  synchronize: 
+    src: test-certs/{{app_name}}/.getssl 
+    dest: ~/
+    owner: no
+    group: no
+- name: "Fix getssl ownership"
+  file:
+    path: ~/.getssl/
+    recurse: yes
+    owner: "{{aws_mgmt_user}}"
+    group: "{{aws_mgmt_user}}"
+
+- name: "Ensure well-known challenge has a home"
+  command: mkdir -p /var/www/{{app_name}}.test.furfest.org/web/.well-known/acme-challenge/
+  args:
+    creates: /var/www/{{app_name}}.test.furfest.org/web/.well-known/acme-challenge/
+
+- name: "Copy httpd config"
+  synchronize:
+    src: test-certs/{{app_name}}/{{app_name}}-vhost.conf
+    dest: /etc/httpd/conf.d/{{app_name}}-vhost.conf
+    owner: no
+    group: no
+- name: "Fix http conf ownership"
+  file: 
+    path: /etc/httpd/conf.d/{{app_name}}-vhost.conf
+    owner: root
+    group: root
+    mode: 0644           
+
+- name: "Copy lecerts"
+  synchronize:
+    src: test-certs/{{app_name}}/lecerts
+    dest: /etc/ssl/
+    owner: no
+    group: no
+- name: "Fix cert perms" 
+  file: 
+    path: /etc/ssl/lecerts/
+    recurse: yes
+    owner: "{{aws_mgmt_user}}"
+    group: "{{aws_mgmt_user}}"
+- name: "Fix cert folder perms"
+  file: 
+    path: /etc/ssl/lecerts/
+    owner: root
+    group: wheel
+
+- name: "Restart httpd!"
+  service:
+    name: httpd
+    state: restarted

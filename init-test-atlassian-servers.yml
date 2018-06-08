@@ -1,0 +1,30 @@
+---
+- hosts: crowd-test
+  gather_facts: no
+  vars_files:
+    - mff_vars.yml
+  remote_user: "{{aws_mgmt_user}}"
+  become: yes
+
+  tasks:
+    - include: load-ssl-certs.yml app_name=crowd
+
+- hosts: wiki-test
+  gather_facts: no
+  vars_files:
+    - mff_vars.yml
+  remote_user: "{{aws_mgmt_user}}"
+  become: yes
+
+  tasks:
+    - include: load-ssl-certs.yml app_name=wiki
+
+- hosts: jira-test
+  gather_facts: no
+  vars_files:
+    - mff_vars.yml
+  remote_user: "{{aws_mgmt_user}}"
+  become: yes
+
+  tasks:
+    - include: load-ssl-certs.yml app_name=jira
