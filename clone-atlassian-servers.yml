@@ -1,0 +1,3 @@
+- name: "Clone the atlassian servers"
+  debug: 
+    msg: "Clone atlassian servers (NOOP)"

@@ -1,0 +1,3 @@
+- name: "Init wiki"
+  debug:
+    msg: "Initing wiki (NOOP)"
