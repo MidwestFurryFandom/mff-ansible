@@ -1,4 +1,9 @@
 ---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+  - include: clone-atlassian-servers.yml
+
 - hosts: crowd-test
   gather_facts: no
   vars_files:
@@ -8,6 +13,10 @@
 
   tasks:
     - include: load-ssl-certs.yml app_name=crowd
+    - include: init-test-crowd.yml 
+      vars:
+        crowd_install: /apps/atlassian/crowd-current 
+        crowd_home: /apps/atlassian/crowd-home
 
 - hosts: wiki-test
   gather_facts: no
@@ -18,6 +27,7 @@
 
   tasks:
     - include: load-ssl-certs.yml app_name=wiki
+    - include: init-test-wiki.yml
 
 - hosts: jira-test
   gather_facts: no
@@ -28,3 +38,4 @@
 
   tasks:
     - include: load-ssl-certs.yml app_name=jira
+    - include: init-test-jira.yml
