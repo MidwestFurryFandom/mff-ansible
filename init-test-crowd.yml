@@ -26,15 +26,7 @@
 
 - name: "Shutdown crowd"
   service:
+    use: /sbin/service
     name: crowd
-    state: stopped
-- name: "Wait PID file to leave"
-  wait_for:
-    path: /apps/atlassian/crowd-current/apache-tomcat/work/catalina.pid
-    state: absent
-    timeout: 15
-    # Shouldn't need this but let's not bother waiting around
-- name: "Start crowd"
-  service:
-    name: crowd
-    state: started
+    state: restarted
+    sleep: 15
