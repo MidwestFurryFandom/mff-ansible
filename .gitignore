@@ -2,3 +2,4 @@
 **/*.retry
 **/*_vars.yml
 **/tmp/
+**/test-certs/
