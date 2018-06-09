@@ -1,0 +1,45 @@
+- name: "Install .bashrc"
+  synchronize:
+    src: test-config/crowd/.bashrc
+    dest: ~/.bashrc
+    owner: no
+    group: no
+- name: "Fix .bashrc permissions"
+  file:
+    path: ~/.bashrc
+    owner: ec2-user
+    group: ec2-user
+    mode: 0644
+
+- name: "Install server.xml"
+  synchronize: 
+    src: test-config/crowd/server.xml
+    dest: "{{crowd_install}}/apache-tomcat/conf/server.xml"
+    owner: no
+    group: no
+- name: "Proper server perms"
+  file:
+    path: "{{crowd_install}}/apache-tomcat/conf/server.xml"
+    owner: crowd-admin
+    group: crowd-admin
+    mode: 0664
+
+- name: "Install crowd.cfg.xml"
+  synchronize: 
+    src: test-config/crowd/crowd.cfg.xml
+    dest: "{{crowd_home}}/shared/crowd.cfg.xml"
+    owner: no
+    group: no
+- name: "Fix cfg perms"
+  file:
+    path: "{{crowd_home}}/shared/crowd.cfg.xml"
+    owner: crowd
+    group: crowd
+    mode: 0640
+
+- name: "Restart crowd"
+  service:
+    use: /sbin/service
+    name: crowd
+    state: restarted
+    sleep: 15

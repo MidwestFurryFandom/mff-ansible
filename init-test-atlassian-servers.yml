@@ -1,0 +1,47 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+  - include: clone-atlassian-servers.yml
+
+- hosts: crowd-test
+  gather_facts: no
+  vars_files:
+    - mff_vars.yml
+  remote_user: "{{aws_mgmt_user}}"
+  become: yes
+
+  tasks:
+    - include: load-ssl-certs.yml app_name=crowd
+    - include: init-test-crowd.yml 
+      vars:
+        crowd_install: /apps/atlassian/crowd-current 
+        crowd_home: /apps/atlassian/crowd-home
+
+- hosts: wiki-test
+  gather_facts: no
+  vars_files:
+    - mff_vars.yml
+  remote_user: "{{aws_mgmt_user}}"
+  become: yes
+
+  tasks:
+    - include: load-ssl-certs.yml app_name=wiki
+    - include: init-test-wiki.yml
+      vars:
+        confluence_install: /apps/atlassian/confluence-current 
+        confluence_home: /apps/atlassian/confluence-home
+
+- hosts: jira-test
+  gather_facts: no
+  vars_files:
+    - mff_vars.yml
+  remote_user: "{{aws_mgmt_user}}"
+  become: yes
+
+  tasks:
+    - include: load-ssl-certs.yml app_name=jira
+    - include: init-test-jira.yml
+      vars:
+        jira_install: /apps/atlassian/jira-current 
+        jira_home: /apps/atlassian/jira-home

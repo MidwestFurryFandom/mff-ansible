@@ -1,0 +1,45 @@
+- name: "Install .bashrc"
+  synchronize:
+    src: test-config/jira/.bashrc
+    dest: ~/.bashrc
+    owner: no
+    group: no
+- name: "Fix .bashrc permissions"
+  file:
+    path: ~/.bashrc
+    owner: ec2-user
+    group: ec2-user
+    mode: 0644
+
+- name: "Install jira server.xml"
+  synchronize: 
+    src: test-config/jira/server.xml
+    dest: "{{jira_install}}/conf/server.xml"
+    owner: no
+    group: no
+- name: "Proper server perms"
+  file:
+    path: "{{jira_install}}/conf/server.xml"
+    owner: jira-admin
+    group: jira-admin
+    mode: 0644
+
+- name: "Install dbconfig.xml"
+  synchronize: 
+    src: test-config/jira/dbconfig.xml
+    dest: "{{jira_home}}/dbconfig.xml"
+    owner: no
+    group: no
+- name: "Fix cfg perms"
+  file:
+    path: "{{jira_home}}/dbconfig.xml"
+    owner: jira
+    group: jira-admin
+    mode: 0664
+
+- name: "restart jira"
+  service:
+    use: /sbin/service
+    name: jira
+    state: restarted
+    sleep: 15
