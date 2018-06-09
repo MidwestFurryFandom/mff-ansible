@@ -1,3 +1,16 @@
+- name: "Install .bashrc"
+  synchronize:
+    src: test-config/crowd/.bashrc
+    dest: ~/.bashrc
+    owner: no
+    group: no
+- name: "Fix .bashrc permissions"
+  file:
+    path: ~/.bashrc
+    owner: ec2-user
+    group: ec2-user
+    mode: 0644
+
 - name: "Install server.xml"
   synchronize: 
     src: test-config/crowd/server.xml
@@ -24,7 +37,7 @@
     group: crowd
     mode: 0640
 
-- name: "Shutdown crowd"
+- name: "Restart crowd"
   service:
     use: /sbin/service
     name: crowd

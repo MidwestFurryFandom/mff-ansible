@@ -1,3 +1,16 @@
+- name: "Install .bashrc"
+  synchronize:
+    src: test-config/wiki/.bashrc
+    dest: ~/.bashrc
+    owner: no
+    group: no
+- name: "Fix .bashrc permissions"
+  file:
+    path: ~/.bashrc
+    owner: ec2-user
+    group: ec2-user
+    mode: 0644
+
 - name: "Install confluence server.xml"
   synchronize: 
     src: test-config/wiki/server.xml
