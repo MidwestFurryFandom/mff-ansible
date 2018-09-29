@@ -2,4 +2,5 @@
 aws_mgmt_user: 
 rams_admin_user: 
 quickstart_dir: 
-staging_dev_dir: 
+staging_dev_dir: "{{ lookup('env','RAMS_CONF') }}/staging"
+prod_dev_dir: "{{ lookup('env','RAMS_CONF') }}/prod"
