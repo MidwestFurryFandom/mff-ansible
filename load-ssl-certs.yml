@@ -32,7 +32,7 @@
 
 - name: "Copy lecerts"
   synchronize:
-    src: test-certs/{{app_name}}/lecerts
+    src: test-certs/2021/lecerts
     dest: /etc/ssl/
     owner: no
     group: no
