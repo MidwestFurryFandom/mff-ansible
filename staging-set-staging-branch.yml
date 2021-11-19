@@ -24,15 +24,6 @@
     args:
       chdir: "{{ quickstart_dir }}/src/uber"
 
-  - name: art_show to staging
-    command: git checkout mff-staging
-    args:
-      chdir: "{{ quickstart_dir }}/src/art_show"
-  - name: pull art_show
-    command: git pull
-    args:
-      chdir: "{{ quickstart_dir }}/src/art_show"
-
   - name: plugin to staging
     command: git checkout mff-staging
     args:
@@ -42,11 +33,5 @@
     args:
       chdir: "{{ quickstart_dir }}/src/mff-rams-plugin"
 
-  - name: badge_printing to staging
-    command: git checkout mff-staging
-    args:
-      chdir: "{{ quickstart_dir }}/src/badge_printing"
-  - name: pull badge_printing
-    command: git pull
-    args:
-      chdir: "{{ quickstart_dir }}/src/badge_printing"
+  - name: restart RAMS
+    command: docker-compose -f ~/quickstart/docker-compose.yml restart web celery-worker celery-beat

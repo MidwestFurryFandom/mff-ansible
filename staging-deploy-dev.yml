@@ -16,10 +16,5 @@
       src: "{{ staging_dev_dir }}/mff-rams-plugin/development.ini"
       dest: "{{ quickstart_dir }}/src/mff-rams-plugin/development.ini"
 
-  - name: copy art_show/development.ini
-    copy: 
-      src: "{{ staging_dev_dir }}/art_show/development.ini"
-      dest: "{{ quickstart_dir }}/src/art_show/development.ini"
-
   - name: restart rams
     command: docker-compose -f {{ quickstart_dir }}/docker-compose.yml restart web
