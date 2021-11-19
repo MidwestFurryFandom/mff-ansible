@@ -11,4 +11,7 @@ if [ -z ${1} ]; then
   echo 'Must specify a target: staging|production'
   exit 1
 fi
-ansible-playbook -i $MFF_ANS/mff-inventory.yml --private-key $RAMS_ADMIN_KEY $MFF_ANS/$1-deploy-dev.yml
+#if [ -n ${2} ] && [ ${2} == '-n' ]; then
+#  NO_RESTART='true'
+#fi
+ansible-playbook -i $MFF_ANS/mff-inventory.yml --private-key $RAMS_ADMIN_KEY $MFF_ANS/$1-deploy-dev.yml 
