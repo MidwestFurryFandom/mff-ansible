@@ -34,4 +34,4 @@
       chdir: "{{ quickstart_dir }}/src/mff-rams-plugin"
 
   - name: restart RAMS
-    command: docker-compose -f ~/quickstart/docker-compose.yml restart web celery-worker celery-beat
+    command: docker-compose -f ~/quickstart/docker-staging.yml restart web celery-worker celery-beat
